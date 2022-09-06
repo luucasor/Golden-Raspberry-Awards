@@ -15,9 +15,13 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
     @Autowired
     MovieService movieService;
 
+    @Autowired
+    MovieService awardService;
+
     @Override
     public void run(String... args) throws Exception {
         List<MovieDTO> beans = (List<MovieDTO>) new CSVReader().getValues("movielist (5).csv", ';');
         movieService.createMovies(beans);
+        awardService.createAwards(beans);
     }
 }

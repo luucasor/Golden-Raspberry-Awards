@@ -16,8 +16,8 @@ public class Movie {
     @Column(unique=true)
     private String title;
 
-    @Column(name = "\"YEAR\"")
-    int year;
+    @Column(name = "\"DATE_YEAR\"")
+    int dateYear;
 
     @ManyToOne
     private Studio studio;

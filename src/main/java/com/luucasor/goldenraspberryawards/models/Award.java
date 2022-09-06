@@ -21,14 +21,6 @@ public class Award {
     @OneToOne
     Movie winner;
 
-    @Column(name = "\"YEAR\"")
-    int year;
-    @Column(name = "\"INTERVAL\"")
-    int interval;
-    int previousWin;
-    int followingWin;
-
-    public void setNominess(List<Movie> nominees){
-        this.nominees.addAll(nominees);
-    }
+    @Column(name = "\"DATE_YEAR\"")
+    int dateYear;
 }

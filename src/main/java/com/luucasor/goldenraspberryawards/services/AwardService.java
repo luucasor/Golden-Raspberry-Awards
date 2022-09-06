@@ -12,11 +12,18 @@ public class AwardService {
     @Autowired
     AwardRepository awardRepository;
     public String isWinner(Movie movie) {
-        String winner = "";
-        Award award = awardRepository.findWinnerByYear(movie.getYear());
+        String winner = "no";
+        Award award = awardRepository.findWinnerByDateYear(movie.getDateYear());
         if(movie.getTitle().equals(award.getWinner().getTitle())){
             winner = "yes";
         }
         return winner;
+    }
+
+    public void createAwardsByYear(Integer key, Movie winner) {
+        Award award = new Award();
+        award.setDateYear(key);
+        award.setWinner(winner);
+        awardRepository.save(award);
     }
 }

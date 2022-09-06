@@ -18,4 +18,8 @@ public class MovieDTO {
     private String producers;
     @CsvBindByName
     private String winner;
+
+    public boolean isWinner(){
+        return "yes".equals(this.winner);
+    }
 }

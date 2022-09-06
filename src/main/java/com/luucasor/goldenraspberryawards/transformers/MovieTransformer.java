@@ -26,7 +26,7 @@ public class MovieTransformer {
     public Movie dtoToEntity(MovieDTO dto){
         Movie entity = new Movie();
         entity.setTitle(dto.getTitle());
-        entity.setYear(dto.getYear());
+        entity.setDateYear(dto.getYear());
         entity.setProducer(getProducer(dto));
         entity.setStudio(getStudio(dto));
         return entity;
@@ -63,7 +63,7 @@ public class MovieTransformer {
 
     public MovieDTO entityToDTO(Movie movie) {
         MovieDTO movieDTO = new MovieDTO();
-        movieDTO.setYear(movie.getYear());
+        movieDTO.setYear(movie.getDateYear());
         movieDTO.setTitle(movie.getTitle());
         movieDTO.setStudios(movie.getStudio().getName());
         movieDTO.setWinner(awardService.isWinner(movie));

@@ -16,7 +16,8 @@ public class ProducerController {
 
     @GetMapping("/longestAwardTimeGap")
     public TimeGapDTO getlongestAwardTimeGap(){
-        //TODO Fazer funcionar
+        //TODO Falta criar as consultas
+        //TODO Falta criar validations
         return producerService.getlongestAwardTimeGap();
     }
 }

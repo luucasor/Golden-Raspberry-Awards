@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AwardRepository extends CrudRepository<Award, Long> {
-    public Award findWinnerByYear(int year);
+    public Award findWinnerByDateYear(int date);
 }
