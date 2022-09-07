@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Bean;
 public class GoldenRaspberryAwardsApplication {
 
 	public static void main(String[] args){
-		//TODO Falta criar autenticação
 		SpringApplication.run(GoldenRaspberryAwardsApplication.class, args);
 	}
 

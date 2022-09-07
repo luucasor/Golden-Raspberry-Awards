@@ -27,7 +27,7 @@ public class AuthFilter extends GenericFilterBean {
     }
 
     private static void checkAuthorization(HttpServletRequest httpRequest, HttpServletResponse httpResponse) throws IOException {
-        if(!"/api/auth".equals(httpRequest.getRequestURI())){
+        if(!"/api/auth".equals(httpRequest.getRequestURI()) && !"/api/auth/register".equals(httpRequest.getRequestURI())){
             String authHeader = httpRequest.getHeader("Authorization");
             if(authHeader != null){
                 String[] authHeaderArr = authHeader.split("Bearer ");
