@@ -7,9 +7,13 @@ import com.luucasor.goldenraspberryawards.models.Studio;
 import com.luucasor.goldenraspberryawards.services.AwardService;
 import com.luucasor.goldenraspberryawards.services.ProducerService;
 import com.luucasor.goldenraspberryawards.services.StudioService;
+import org.apache.commons.collections.set.ListOrderedSet;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MovieTransformer {
 
@@ -27,25 +31,47 @@ public class MovieTransformer {
         Movie entity = new Movie();
         entity.setTitle(dto.getTitle());
         entity.setDateYear(dto.getYear());
-        entity.setProducer(getProducer(dto));
+        entity.setProducers(getProducers(dto));
         entity.setStudio(getStudio(dto));
         return entity;
     }
 
-    private Producer getProducer(MovieDTO dto){
-        Producer producer = producerService.findByName(dto.getProducers());
-        if(producer == null){
-            producer = new Producer(dto.getProducers());
-            producerService.save(producer);
+    private List<Producer> getProducers(MovieDTO dto){
+        List<Producer> producers = splitProducers(dto.getProducers());
+        producers = createNewProducerIfNotExists(producers);
+        return producers;
+    }
+
+    private List<Producer> createNewProducerIfNotExists(List<Producer> producers) {
+        List<Producer> savedProducers = new ArrayList<>();
+        for (Producer item: producers) {
+            Producer producer = producerService.findByName(item.getName());
+            if(producer == null){
+                savedProducers.add(producerService.save(item));
+            }
         }
-        return producer;
+        return savedProducers;
+    }
+
+    private List<Producer> splitProducers(String stringProducers) {
+        List<Producer> producers = new ArrayList<>();
+        if(stringProducers.contains(" and ")){
+            stringProducers = stringProducers.replace(", and ", ",").replace(" and ", ", ");
+            List<String> commaParts = Arrays.stream(stringProducers.split(",")).toList();
+            commaParts.forEach(item -> {
+                producers.add(new Producer(item.trim()));
+            });
+        } else {
+            producers.add(new Producer(stringProducers));
+        }
+        return producers;
     }
 
     private Studio getStudio(MovieDTO dto) {
         Studio studio = studioService.findByName(dto.getStudios());
         if(studio == null){
             studio = new Studio(dto.getStudios());
-            studioService.save(studio);
+            studio = studioService.save(studio);
         }
         return studio;
     }

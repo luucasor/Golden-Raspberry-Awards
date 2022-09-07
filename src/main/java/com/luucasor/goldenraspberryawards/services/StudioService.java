@@ -15,7 +15,7 @@ public class StudioService {
         return studioRepository.findByName(name);
     }
 
-    public void save(Studio studio) {
-        studioRepository.save(studio);
+    public Studio save(Studio studio) {
+        return studioRepository.save(studio);
     }
 }

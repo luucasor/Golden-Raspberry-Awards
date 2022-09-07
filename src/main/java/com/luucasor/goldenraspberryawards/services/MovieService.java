@@ -24,9 +24,13 @@ public class MovieService {
     @Autowired
     AwardService awardService;
     public boolean createMovies(List<MovieDTO> moviesDTO){
+        List<Movie> movies = new ArrayList<>();
         MovieTransformer movieTransformer = new MovieTransformer(producerService, studioService, awardService);
-        List<Movie> movies = (List<Movie>) movieRepository.saveAll(movieTransformer.dtosToEntities(moviesDTO));
-        return movies != null && !movies.isEmpty();
+        List<Movie> entities = movieTransformer.dtosToEntities(moviesDTO);
+        for (Movie item: entities) {
+            movies.add(movieRepository.save(item));
+        }
+        return !movies.isEmpty();
     }
 
     public void createAwards(List<MovieDTO> moviesDTO) {

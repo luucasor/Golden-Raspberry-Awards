@@ -21,6 +21,5 @@ public class Award {
     @OneToOne
     Movie winner;
 
-    @Column(name = "\"DATE_YEAR\"")
     int dateYear;
 }

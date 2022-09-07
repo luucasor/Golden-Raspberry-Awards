@@ -20,7 +20,7 @@ public class ProducerService {
         return null;
     }
 
-    public void save(Producer producer) {
-        producerRepository.save(producer);
+    public Producer save(Producer producer) {
+        return producerRepository.save(producer);
     }
 }

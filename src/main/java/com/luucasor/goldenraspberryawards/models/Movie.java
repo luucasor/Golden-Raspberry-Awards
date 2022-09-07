@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -16,12 +17,11 @@ public class Movie {
     @Column(unique=true)
     private String title;
 
-    @Column(name = "\"DATE_YEAR\"")
     int dateYear;
 
     @ManyToOne
     private Studio studio;
 
-    @ManyToOne
-    private Producer producer;
+    @OneToMany
+    private List<Producer> producers;
 }
