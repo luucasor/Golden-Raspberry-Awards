@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public interface AwardRepository extends CrudRepository<Award, Long> {
-    public List<Movie> findWinnerMoviesByDateYear(int date);
+    List<Movie> findWinnerMoviesByDateYear(int date);
 
-    public List<Award> findAll();
+    List<Award> findAll();
 }
