@@ -27,8 +27,44 @@ public class ProducerService {
     }
 
     public TimeGapDTO getMinAndMaxAwardTimeGap() {
-        List<Award> awards = awardRepository.findAll();
+        HashMap<Producer, List<Award>> listWinningProducers = getListWinningProducers();
+        List<AwardDTO> list = sortByInterval(listWinningProducers);
 
+        return new TimeGapDTO(Arrays.asList(list.get(0), list.get(1)), Arrays.asList(list.get(list.size()-2), list.get(list.size()-1)));
+    }
+
+    private static List<AwardDTO> sortByInterval(HashMap<Producer, List<Award>> awardWinningProducers) {
+        List<AwardDTO> awardsDTO = new ArrayList<>();
+        awardWinningProducers.forEach((k, v) -> {
+            if(v.size() > 1){
+                AwardDTO awardDTO = new AwardDTO();
+                awardDTO.setProducer(k.getName());
+                for(int i = 0; i < v.size(); i++){
+                    if(i+1 >= v.size()){
+                        break;
+                    }
+                    int max = Math.max(v.get(i).getDateYear(), v.get(i+1).getDateYear());
+                    int min = Math.min(v.get(i).getDateYear(), v.get(i+1).getDateYear());
+                    awardDTO.setPreviousWin(min);
+                    awardDTO.setFollowingWin(max);
+                    awardDTO.setInterval(max-min);
+
+                    boolean exists = awardsDTO.stream().anyMatch(a -> awardDTO.getProducer().equals(a.getProducer()) &&
+                                                                                                    awardDTO.getInterval() == a.getInterval() &&
+                                                                                                    awardDTO.getPreviousWin() == a.getPreviousWin() &&
+                                                                                                    awardDTO.getFollowingWin() == a.getFollowingWin()
+                    );
+                    if(!exists){
+                        awardsDTO.add(awardDTO);
+                    }
+                }
+            }
+        });
+        return awardsDTO.stream().sorted(Comparator.comparing(AwardDTO::getInterval)).collect(Collectors.toList());
+    }
+
+    private HashMap<Producer, List<Award>> getListWinningProducers() {
+        List<Award> awards = awardRepository.findAll();
         HashMap<Producer, List<Award>> awardWinningProducers = new HashMap<>();
         awards.forEach(award -> {
             List<Movie> winnerMovies = award.getWinnerMovies();
@@ -44,25 +80,7 @@ public class ProducerService {
                 });
             });
         });
-
-        List<AwardDTO> awardsDTO = new ArrayList<>();
-        awardWinningProducers.forEach((k,v) -> {
-            if(v.size() > 1){
-                AwardDTO awardDTO = new AwardDTO();
-                awardDTO.setProducer(k.getName());
-                awardDTO.setPreviousWin(Math.min(v.get(0).getDateYear(), v.get(1).getDateYear()));
-                awardDTO.setFollowingWin(Math.max(v.get(0).getDateYear(), v.get(1).getDateYear()));
-                awardDTO.setInterval(awardDTO.getFollowingWin()-awardDTO.getPreviousWin());
-                awardsDTO.add(awardDTO);
-            }
-        });
-
-        List<AwardDTO> list = awardsDTO.stream().sorted(Comparator.comparing(AwardDTO::getInterval)).collect(Collectors.toList());
-        TimeGapDTO timeGapDTO = new TimeGapDTO();
-        timeGapDTO.setMin(Arrays.asList(list.get(0), list.get(1)));
-        timeGapDTO.setMax(Arrays.asList(list.get(2), list.get(3)));
-
-        return timeGapDTO;
+        return awardWinningProducers;
     }
 
     public Producer save(Producer producer) {

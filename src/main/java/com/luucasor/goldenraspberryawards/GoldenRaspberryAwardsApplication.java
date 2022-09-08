@@ -1,7 +1,6 @@
 package com.luucasor.goldenraspberryawards;
 
 import com.luucasor.goldenraspberryawards.dtos.MovieDTO;
-import com.luucasor.goldenraspberryawards.models.Movie;
 import com.luucasor.goldenraspberryawards.readers.CSVReader;
 import com.luucasor.goldenraspberryawards.security.AuthFilter;
 import com.luucasor.goldenraspberryawards.services.MovieService;

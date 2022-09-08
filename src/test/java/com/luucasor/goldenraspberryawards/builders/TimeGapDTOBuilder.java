@@ -13,33 +13,44 @@ public class TimeGapDTOBuilder {
 
     public static TimeGapDTO getMinMax(){
         TimeGapDTO minMax = new TimeGapDTO();
+        minMax.setMin(Arrays.asList(getJoelSilver(), getBoDerek()));
+        minMax.setMax(Arrays.asList(getBuzzFeitshans(), getMatthewVaughn()));
+        return minMax;
+    }
 
-        AwardDTO joelSilver = new AwardDTO();
-        joelSilver.setProducer("Joel Silver");
-        joelSilver.setInterval(1);
-        joelSilver.setPreviousWin(1990);
-        joelSilver.setFollowingWin(1991);
-
-        AwardDTO boDerek = new AwardDTO();
-        boDerek.setProducer("Bo Derek");
-        boDerek.setInterval(6);
-        boDerek.setPreviousWin(1984);
-        boDerek.setFollowingWin(1990);
-
-        AwardDTO buzzFeitshans = new AwardDTO();
-        buzzFeitshans.setProducer("Buzz Feitshans");
-        buzzFeitshans.setInterval(9);
-        buzzFeitshans.setPreviousWin(1985);
-        buzzFeitshans.setFollowingWin(1994);
-
+    private static AwardDTO getMatthewVaughn() {
         AwardDTO matthewVaughn = new AwardDTO();
         matthewVaughn.setProducer("Matthew Vaughn");
         matthewVaughn.setInterval(13);
         matthewVaughn.setPreviousWin(2002);
         matthewVaughn.setFollowingWin(2015);
+        return matthewVaughn;
+    }
 
-        minMax.setMin(Arrays.asList(joelSilver, boDerek));
-        minMax.setMax(Arrays.asList(buzzFeitshans, matthewVaughn));
-        return minMax;
+    private static AwardDTO getBuzzFeitshans() {
+        AwardDTO buzzFeitshans = new AwardDTO();
+        buzzFeitshans.setProducer("Buzz Feitshans");
+        buzzFeitshans.setInterval(9);
+        buzzFeitshans.setPreviousWin(1985);
+        buzzFeitshans.setFollowingWin(1994);
+        return buzzFeitshans;
+    }
+
+    private static AwardDTO getBoDerek() {
+        AwardDTO boDerek = new AwardDTO();
+        boDerek.setProducer("Bo Derek");
+        boDerek.setInterval(6);
+        boDerek.setPreviousWin(1984);
+        boDerek.setFollowingWin(1990);
+        return boDerek;
+    }
+
+    private static AwardDTO getJoelSilver() {
+        AwardDTO joelSilver = new AwardDTO();
+        joelSilver.setProducer("Joel Silver");
+        joelSilver.setInterval(1);
+        joelSilver.setPreviousWin(1990);
+        joelSilver.setFollowingWin(1991);
+        return joelSilver;
     }
 }
