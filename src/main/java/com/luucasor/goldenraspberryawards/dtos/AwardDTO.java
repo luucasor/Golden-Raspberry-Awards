@@ -5,10 +5,15 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AwardDTO {
+public class AwardDTO implements Comparable<AwardDTO>{
 
     String producer;
-    int interval;
+    Integer interval;
     int previousWin;
     int followingWin;
+
+    @Override
+    public int compareTo(AwardDTO o) {
+        return this.getInterval().compareTo(o.getInterval());
+    }
 }
