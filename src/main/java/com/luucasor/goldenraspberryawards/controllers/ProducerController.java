@@ -26,8 +26,6 @@ public class ProducerController {
             }
     )
     public TimeGapDTO getMinAndMaxAwardTimeGap(){
-        //TODO Falta criar validations
-        //TODO Falta criar README
         return producerService.getlongestAwardTimeGap();
     }
 
