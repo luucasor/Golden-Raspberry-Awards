@@ -34,7 +34,7 @@ public class ProducerControllerTest extends GoldenRaspberryAwardsApplicationTest
     @Test
     public void performTheSearchForThePrizeWithTheLongestAndShortestTimeInterval_shouldReturn200StatusCode() throws Exception {
         TimeGapDTO minMax = TimeGapDTOBuilder.getMinMax();
-        MvcResult result = this.mockMvc.perform(MockMvcRequestBuilders.get("/api/producer/longestAwardTimeGap"))
+        MvcResult result = this.mockMvc.perform(MockMvcRequestBuilders.get("/api/producer/minAndMaxAwardTimeGap"))
                 .andExpect(status().isOk()).andReturn();
 
         TimeGapDTO timeGapDTO = new ObjectMapper().readValue(result.getResponse().getContentAsString(), TimeGapDTO.class);
