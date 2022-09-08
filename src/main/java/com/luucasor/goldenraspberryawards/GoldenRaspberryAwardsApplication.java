@@ -39,7 +39,7 @@ public class GoldenRaspberryAwardsApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		List<MovieDTO> beans = (List<MovieDTO>) new CSVReader().getValues("movielist (5).csv", ';');
-		List<Movie> movies = movieService.createMovies(beans);
-		awardService.createAwards(beans, movies);
+		movieService.createMovies(beans);
+		awardService.createAwards(beans);
 	}
 }

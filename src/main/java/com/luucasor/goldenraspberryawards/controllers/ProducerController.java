@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/producer")
 public class ProducerController {
@@ -17,6 +19,7 @@ public class ProducerController {
 
     @GetMapping("/longestAwardTimeGap")
     @ApiOperation(value = "Get the producer with the longest gap between two consecutive awards", response = TimeGapDTO.class)
+    //public TimeGapDTO getlongestAwardTimeGap(){
     public TimeGapDTO getlongestAwardTimeGap(){
         //TODO Falta criar as consultas
         //TODO Falta criar validations

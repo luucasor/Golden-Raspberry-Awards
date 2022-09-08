@@ -23,14 +23,14 @@ public class MovieService {
     StudioService studioService;
     @Autowired
     AwardService awardService;
-    public boolean createMovies(List<MovieDTO> moviesDTO){
+    public List<Movie> createMovies(List<MovieDTO> moviesDTO){
         List<Movie> movies = new ArrayList<>();
         MovieTransformer movieTransformer = new MovieTransformer(producerService, studioService, awardService);
         List<Movie> entities = movieTransformer.dtosToEntities(moviesDTO);
         for (Movie item: entities) {
             movies.add(movieRepository.save(item));
         }
-        return !movies.isEmpty();
+        return movies;
     }
 
     public void createAwards(List<MovieDTO> moviesDTO) {
@@ -39,10 +39,15 @@ public class MovieService {
         for (Integer key: keys.toList()) {
             List<Movie> movieList = moviesFilteredByYear.get(key);
             if(movieList != null){
-                MovieDTO winnerTitle = moviesDTO.stream().filter(m -> key.equals(m.getYear()) && m.isWinner()).findFirst().orElse(null);
-                if(winnerTitle != null){
-                    Movie winner = movieRepository.findByDateYearAndTitle(key, winnerTitle.getTitle());
-                    awardService.createAwardsByYear(key, winner);
+                List<MovieDTO> winners = moviesDTO.stream().filter(m -> key.equals(m.getYear()) && m.isWinner()).toList();
+                if(!winners.isEmpty()){
+                    List<Movie> winnersEntities = new ArrayList<>();
+                    for(MovieDTO item: winners){
+                        Movie winner = movieRepository.findByDateYearAndTitle(key, item.getTitle());
+                        winnersEntities.add(winner);
+                    }
+
+                    awardService.createAwardsByYear(key, winnersEntities, movieList);
                 }
             }
         }

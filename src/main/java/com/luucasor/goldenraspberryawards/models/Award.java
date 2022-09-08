@@ -18,8 +18,8 @@ public class Award {
     @OneToMany
     List<Movie> nominees;
 
-    @OneToOne
-    Movie winner;
+    @OneToMany
+    List<Movie> winnerMovies;
 
     int dateYear;
 }

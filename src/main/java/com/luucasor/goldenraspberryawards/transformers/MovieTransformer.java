@@ -7,13 +7,10 @@ import com.luucasor.goldenraspberryawards.models.Studio;
 import com.luucasor.goldenraspberryawards.services.AwardService;
 import com.luucasor.goldenraspberryawards.services.ProducerService;
 import com.luucasor.goldenraspberryawards.services.StudioService;
-import org.apache.commons.collections.set.ListOrderedSet;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class MovieTransformer {
 
@@ -29,7 +26,7 @@ public class MovieTransformer {
 
     public Movie dtoToEntity(MovieDTO dto){
         Movie entity = new Movie();
-        entity.setTitle(dto.getTitle());
+        entity.setTitle(dto.getTitle().trim());
         entity.setDateYear(dto.getYear());
         entity.setProducers(getProducers(dto));
         entity.setStudio(getStudio(dto));
@@ -37,7 +34,7 @@ public class MovieTransformer {
     }
 
     private List<Producer> getProducers(MovieDTO dto){
-        List<Producer> producers = splitProducers(dto.getProducers());
+        List<Producer> producers = splitProducers(dto.getProducers().trim());
         producers = createNewProducerIfNotExists(producers);
         return producers;
     }
@@ -48,6 +45,8 @@ public class MovieTransformer {
             Producer producer = producerService.findByName(item.getName());
             if(producer == null){
                 savedProducers.add(producerService.save(item));
+            } else {
+                savedProducers.add(producer);
             }
         }
         return savedProducers;
@@ -68,9 +67,9 @@ public class MovieTransformer {
     }
 
     private Studio getStudio(MovieDTO dto) {
-        Studio studio = studioService.findByName(dto.getStudios());
+        Studio studio = studioService.findByName(dto.getStudios().trim());
         if(studio == null){
-            studio = new Studio(dto.getStudios());
+            studio = new Studio(dto.getStudios().trim());
             studio = studioService.save(studio);
         }
         return studio;

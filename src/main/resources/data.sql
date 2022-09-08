@@ -1,0 +1,1 @@
+INSERT INTO USERS (USER_ID, EMAIL, FIRST_NAME, LAST_NAME, PASSWORD) VALUES (1, 'luucasor@gmail.com', 'Lucas', 'Ortigara', '$2a$16$9gz6A37RD3EEEg8ywzTKCet6eHFMVfoF/tCZHNvIxumFAVswdRpX6');

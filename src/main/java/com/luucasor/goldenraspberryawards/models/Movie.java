@@ -22,6 +22,6 @@ public class Movie {
     @ManyToOne
     private Studio studio;
 
-    @OneToMany
+    @ManyToMany
     private List<Producer> producers;
 }
