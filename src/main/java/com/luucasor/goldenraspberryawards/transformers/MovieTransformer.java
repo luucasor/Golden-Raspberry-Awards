@@ -52,7 +52,7 @@ public class MovieTransformer {
         return savedProducers;
     }
 
-    private List<Producer> splitProducers(String stringProducers) {
+    public static List<Producer> splitProducers(String stringProducers) {
         List<Producer> producers = new ArrayList<>();
         if(stringProducers.contains(" and ")){
             stringProducers = stringProducers.replace(", and ", ",").replace(" and ", ", ");

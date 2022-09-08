@@ -26,8 +26,7 @@ public class AuthController {
     @ApiResponses(
             {
                     @ApiResponse(code = 200, message = "OK"),
-                    @ApiResponse(code = 401, message = "Unauthorized"),
-                    @ApiResponse(code = 500, message = "Internal Server Error"),
+                    @ApiResponse(code = 401, message = "Unauthorized")
             }
     )
     public TokenDTO loginUser(@RequestBody LoginDTO loginDTO) throws AuthException {
@@ -40,8 +39,7 @@ public class AuthController {
             {
                     @ApiResponse(code = 200, message = "OK"),
                     @ApiResponse(code = 400, message = "Bad Request"),
-                    @ApiResponse(code = 409, message = "Conflict"),
-                    @ApiResponse(code = 500, message = "Internal Server Error"),
+                    @ApiResponse(code = 409, message = "Conflict")
             }
     )
     public TokenDTO registerUser(@RequestBody UserDTO userDTO){

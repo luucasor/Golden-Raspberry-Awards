@@ -1,8 +1,6 @@
 package com.luucasor.goldenraspberryawards.configurations;
 
 import com.luucasor.goldenraspberryawards.Constants;
-import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
-import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -21,7 +19,7 @@ import java.util.List;
 
 @Configuration
 @EnableWebMvc
-public class SpringFoxConfig {
+public class SwaggerConfig {
     private static final String BASE_PACKAGE = "com.luucasor.goldenraspberryawards.controllers";
     private static final String API_TITLE = "API Golden Raspberry Awards";
     private static final String API_DESCRIPTION = "API RESTful que possibilita a leitura da lista de indicados e vencedores da categoria Pior Filme do Golden Raspberry Awards";
