@@ -26,7 +26,7 @@ public class ProducerService {
         return producerRepository.findByName(name);
     }
 
-    public TimeGapDTO getlongestAwardTimeGap() {
+    public TimeGapDTO getMinAndMaxAwardTimeGap() {
         List<Award> awards = awardRepository.findAll();
 
         HashMap<Producer, List<Award>> awardWinningProducers = new HashMap<>();

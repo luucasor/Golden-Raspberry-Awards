@@ -26,7 +26,7 @@ public class ProducerController {
             }
     )
     public TimeGapDTO getMinAndMaxAwardTimeGap(){
-        return producerService.getlongestAwardTimeGap();
+        return producerService.getMinAndMaxAwardTimeGap();
     }
 
 }
