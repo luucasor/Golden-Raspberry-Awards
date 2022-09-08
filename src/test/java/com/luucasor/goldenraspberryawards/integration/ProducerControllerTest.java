@@ -33,39 +33,28 @@ public class ProducerControllerTest extends GoldenRaspberryAwardsApplicationTest
 
     @Test
     public void performTheSearchForThePrizeWithTheLongestAndShortestTimeInterval_shouldReturn200StatusCode() throws Exception {
-        TimeGapDTO minMax = TimeGapDTOBuilder.getMinMax();
+        TimeGapDTO minMaxBuilder = TimeGapDTOBuilder.getMinMax();
         MvcResult result = this.mockMvc.perform(MockMvcRequestBuilders.get("/api/producer/minAndMaxAwardTimeGap"))
                 .andExpect(status().isOk()).andReturn();
 
         TimeGapDTO timeGapDTO = new ObjectMapper().readValue(result.getResponse().getContentAsString(), TimeGapDTO.class);
 
-        AwardDTO firstMinDTO = minMax.getMin().get(0);
-        AwardDTO firstMinBuilder = timeGapDTO.getMin().get(0);
-        Assert.assertEquals(firstMinDTO.getProducer(), firstMinBuilder.getProducer());
-        Assert.assertEquals(firstMinDTO.getInterval(), firstMinBuilder.getInterval());
-        Assert.assertEquals(firstMinDTO.getFollowingWin(), firstMinBuilder.getFollowingWin());
-        Assert.assertEquals(firstMinDTO.getPreviousWin(), firstMinBuilder.getPreviousWin());
+        Assert.assertEquals(1, timeGapDTO.getMin().size());
+        Assert.assertEquals(1, timeGapDTO.getMax().size());
 
-        AwardDTO secondMinDTO = minMax.getMin().get(1);
-        AwardDTO secondMinBuilder = timeGapDTO.getMin().get(1);
-        Assert.assertEquals(secondMinDTO.getProducer(), secondMinBuilder.getProducer());
-        Assert.assertEquals(secondMinDTO.getInterval(), secondMinBuilder.getInterval());
-        Assert.assertEquals(secondMinDTO.getFollowingWin(), secondMinBuilder.getFollowingWin());
-        Assert.assertEquals(secondMinDTO.getPreviousWin(), secondMinBuilder.getPreviousWin());
+        AwardDTO firstMinBuilder = minMaxBuilder.getMin().get(0);
+        AwardDTO firstMinDTO = timeGapDTO.getMin().get(0);
+        Assert.assertEquals(firstMinBuilder.getProducer(), firstMinDTO.getProducer());
+        Assert.assertEquals(firstMinBuilder.getInterval(), firstMinDTO.getInterval());
+        Assert.assertEquals(firstMinBuilder.getFollowingWin(), firstMinDTO.getFollowingWin());
+        Assert.assertEquals(firstMinBuilder.getPreviousWin(), firstMinDTO.getPreviousWin());
 
-        AwardDTO firstMaxDTO = minMax.getMax().get(0);
-        AwardDTO firstMaxBuilder = timeGapDTO.getMax().get(0);
-        Assert.assertEquals(firstMaxDTO.getProducer(), firstMaxBuilder.getProducer());
-        Assert.assertEquals(firstMaxDTO.getInterval(), firstMaxBuilder.getInterval());
-        Assert.assertEquals(firstMaxDTO.getFollowingWin(), firstMaxBuilder.getFollowingWin());
-        Assert.assertEquals(firstMaxDTO.getPreviousWin(), firstMaxBuilder.getPreviousWin());
-
-        AwardDTO secondMaxDTO = minMax.getMax().get(1);
-        AwardDTO secondMaxBuilder = timeGapDTO.getMax().get(1);
-        Assert.assertEquals(secondMaxDTO.getProducer(), secondMaxBuilder.getProducer());
-        Assert.assertEquals(secondMaxDTO.getInterval(), secondMaxBuilder.getInterval());
-        Assert.assertEquals(secondMaxDTO.getFollowingWin(), secondMaxBuilder.getFollowingWin());
-        Assert.assertEquals(secondMaxDTO.getPreviousWin(), secondMaxBuilder.getPreviousWin());
+        AwardDTO firstMaxBuilder = minMaxBuilder.getMax().get(0);
+        AwardDTO firstMaxDTO = timeGapDTO.getMax().get(0);
+        Assert.assertEquals(firstMaxBuilder.getProducer(), firstMaxDTO.getProducer());
+        Assert.assertEquals(firstMaxBuilder.getInterval(), firstMaxDTO.getInterval());
+        Assert.assertEquals(firstMaxBuilder.getFollowingWin(), firstMaxDTO.getFollowingWin());
+        Assert.assertEquals(firstMaxBuilder.getPreviousWin(), firstMaxDTO.getPreviousWin());
 
     }
 

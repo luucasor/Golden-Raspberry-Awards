@@ -30,7 +30,7 @@ public class ProducerService {
         HashMap<Producer, List<Award>> listWinningProducers = getListWinningProducers();
         List<AwardDTO> list = sortByInterval(listWinningProducers);
 
-        return new TimeGapDTO(Arrays.asList(list.get(0), list.get(1)), Arrays.asList(list.get(list.size()-2), list.get(list.size()-1)));
+        return new TimeGapDTO(Arrays.asList(list.get(0)), Arrays.asList(list.get(list.size()-1)));
     }
 
     private static List<AwardDTO> sortByInterval(HashMap<Producer, List<Award>> awardWinningProducers) {

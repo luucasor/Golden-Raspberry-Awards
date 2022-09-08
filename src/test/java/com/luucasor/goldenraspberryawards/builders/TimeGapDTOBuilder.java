@@ -13,8 +13,8 @@ public class TimeGapDTOBuilder {
 
     public static TimeGapDTO getMinMax(){
         TimeGapDTO minMax = new TimeGapDTO();
-        minMax.setMin(Arrays.asList(getJoelSilver(), getBoDerek()));
-        minMax.setMax(Arrays.asList(getBuzzFeitshans(), getMatthewVaughn()));
+        minMax.setMin(Arrays.asList(getJoelSilver()));
+        minMax.setMax(Arrays.asList(getMatthewVaughn()));
         return minMax;
     }
 
